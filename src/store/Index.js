@@ -1,15 +1,19 @@
 import Vue from "vue";
 import Vuex from 'vuex';
 import instance from "@/api/instance";
-import {ACCESS_TOKEN, USERS_BY_NAME} from "@/api/routes";
+import {
+    ACCESS_TOKEN,
+    USER_BY_ID,
+    USERS_BY_NAME
+} from "@/api/routes";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
         users: {},
+        user: {},
         count: 10,
-        name: ''
     },
 
     mutations: {
@@ -17,8 +21,8 @@ export default new Vuex.Store({
             state.users = res;
         },
 
-        updateName(state, name) {
-            state.name = name
+        updateUser(state, res) {
+            state.user = res;
         },
 
         updateCount(state) {
@@ -31,14 +35,28 @@ export default new Vuex.Store({
     },
 
     actions: {
-        async fetchUsers({commit, state}) {
+        async searchUsers({commit, state}, name) {
 
             return instance
-                .get(USERS_BY_NAME(state.name) +
-                '&count=' + state.count + '&fields=photo_100' +
-                '&v=5.52' + ACCESS_TOKEN())
+                .get(USERS_BY_NAME(name) +
+                    '&count=' + state.count +
+                    '&fields=photo_100' +
+                    ',domain' + ACCESS_TOKEN() + '&v=5.52')
                 .then(res => {
                     commit('setUsers', res.data.response.items)
+                    console.log(res)
+                })
+                .catch(err => console.log(err))
+        },
+
+        getUser({commit}, id) {
+            return instance
+                .get(USER_BY_ID(id) +
+                    '&fields=photo_max_orig' +
+                    ACCESS_TOKEN() + '&v=5.89')
+                .then(res => {
+                    console.log(res.data.response)
+                    commit('updateUser', res.data.response)
                 })
                 .catch(err => console.log(err))
         }

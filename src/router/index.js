@@ -1,5 +1,6 @@
 import VueRouter from "vue-router";
 import ContentArea from "@/components/ContentArea";
+import UserPage from "@/components/UserPage";
 
 
 export default new VueRouter({
@@ -9,6 +10,13 @@ export default new VueRouter({
             path: '/',
             component: ContentArea,
             name: 'content',
+
+        },
+
+        {
+            path: '/:id',
+            component: UserPage,
+            name: 'userpage',
 
         },
     ]

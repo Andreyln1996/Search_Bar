@@ -1,16 +1,16 @@
 <template>
-  <div class="search-bar">
+  <div class="content-area">
     <div
         v-for="(user, i) in USERS" :key="i"
-        class="search-bar__user"
-        @click="console.log('dfd')">
+        class="content-area__user"
+        @click="userPage(user.domain)">
 
       <img
           :src="user.photo_100"
-          class="search-bar__photo-user"
+          class="content-area__photo-user"
           alt="Фото"/>
 
-      <div class="search-bar__name-user">
+      <div class="content-area__name-user">
         {{ user.first_name }} {{ user.last_name }}
       </div>
 
@@ -19,15 +19,25 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   name: "ContentArea",
   computed: mapGetters(["USERS"]),
+
+  methods: {
+    ...mapMutations(["updateId"]),
+    ...mapActions(['getUser']),
+
+    userPage(id) {
+      this.getUser(id)
+      this.$router.push(id)
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-.search-bar {
+.content-area {
   display: flex;
   flex-direction: column;
   align-items: center;

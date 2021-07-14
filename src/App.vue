@@ -4,7 +4,7 @@
       <div class="app__header">
         <input
             v-on:keyup.enter="reset()"
-            v-model.lazy="userName"
+            v-model.lazy="name"
             type="text"
             class="app__input"
             placeholder="Поиск">
@@ -17,23 +17,13 @@
 </template>
 
 <script>
-import {mapActions, mapState, mapMutations} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 export default {
   name: 'App',
-
-  computed: {
-    ...mapState(['name','count']),
-
-    userName: {
-      get () {
-        return this.name
-      },
-
-      set (value) {
-        this.updateName(value)
-      }
+  data() {
+    return {
+      name: ''
     }
-
   },
 
   created() {
@@ -45,13 +35,14 @@ export default {
   },
 
   methods: {
-    ...mapActions(["fetchUsers"]),
-    ...mapMutations(["updateName","updateCount","resetCount"]),
+    ...mapActions(["searchUsers"]),
+    ...mapMutations(["updateCount","resetCount"]),
 
     reset () {
-      this.resetCount()
-      this.fetchUsers()
       window.scrollTo(0,0)
+      this.resetCount()
+      this.searchUsers(this.name)
+
     },
 
     fullScroll() {
@@ -61,7 +52,7 @@ export default {
           document.documentElement.clientHeight)
       {
         this.updateCount()
-        this.fetchUsers()
+        this.searchUsers(this.name)
       }
     }
   }
