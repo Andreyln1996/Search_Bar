@@ -23,6 +23,7 @@ export default new Vuex.Store({
 
         updateUser(state, res) {
             state.user = res;
+            // state.user.push(res);
         },
 
         updateCount(state) {
@@ -35,8 +36,7 @@ export default new Vuex.Store({
     },
 
     actions: {
-        async searchUsers({commit, state}, name) {
-
+       searchUsers({commit, state}, name) {
             return instance
                 .get(USERS_BY_NAME(name) +
                     '&count=' + state.count +
@@ -50,12 +50,13 @@ export default new Vuex.Store({
         },
 
         getUser({commit}, id) {
+            console.log('getuser: id', id)
             return instance
                 .get(USER_BY_ID(id) +
                     '&fields=photo_200' +
                     ACCESS_TOKEN() + '&v=5.89')
                 .then(res => {
-                    // console.log(res.data.response)
+                    console.log(res.data.response)
                     commit('updateUser', res.data.response)
                 })
                 .catch(err => console.log(err))

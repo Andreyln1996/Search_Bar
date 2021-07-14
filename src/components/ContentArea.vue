@@ -19,20 +19,19 @@
 </template>
 
 <script>
-import {mapGetters, mapActions, mapMutations } from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: "ContentArea",
   computed: mapGetters(["USERS"]),
 
   methods: {
-    ...mapMutations(["updateId"]),
     ...mapActions(['getUser']),
 
-    userPage(id) {
-      this.getUser(id)
-      this.$router.push(id)
+    async userPage(id) {
+      await this.getUser(id)
+      await this.$router.push(id)
     }
-  }
+  },
 }
 </script>
 

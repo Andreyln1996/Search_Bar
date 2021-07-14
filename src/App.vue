@@ -39,8 +39,10 @@ export default {
     ...mapMutations(["updateCount","resetCount"]),
 
     reset () {
-      if (this.$router.history.current.name === 'userpage')
-      {this.$router.push({name: 'content'})}
+      if (this.$route.name === 'userpage')
+      {
+        this.$router.push({name: 'content'})
+      }
 
       window.scrollTo(0,0)
       this.resetCount()
