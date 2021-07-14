@@ -53,7 +53,7 @@ export default {
 
   methods: {
     ...mapActions(["fetchUsers"]),
-    ...mapMutations(["updateName"]),
+    ...mapMutations(["updateName","updateCount"]),
 
     fullScroll() {
       console.log('ddd')
@@ -61,8 +61,8 @@ export default {
           document.documentElement.scrollTop +
           document.documentElement.clientHeight)
       {
-        this.count += 10
-
+        this.updateCount()
+        this.fetchUsers()
       }
     }
   }

@@ -19,16 +19,20 @@ export default new Vuex.Store({
 
         updateName(state, name) {
             state.name = name
+        },
+
+        updateCount(state) {
+            state.count += 10
         }
     },
 
     actions: {
         fetchUsers({commit, state}) {
 
-            return instance.get(USERS_BY_NAME(state.name) +
+            return instance
+                .get(USERS_BY_NAME(state.name) +
                 '&count=' + state.count + '&fields=photo_100' +
                 '&v=5.52' + ACCESS_TOKEN())
-
                 .then(res => {
                     commit('setUsers', res.data.response.items)
                 })
