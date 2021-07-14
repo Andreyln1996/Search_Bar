@@ -3,7 +3,7 @@
     <div class="app__container">
       <div class="app__header">
         <input
-            v-on:keyup.enter="fetchUsers()"
+            v-on:keyup.enter="reset()"
             v-model.lazy="userName"
             type="text"
             class="app__input"
@@ -20,13 +20,6 @@
 import {mapActions, mapState, mapMutations} from 'vuex'
 export default {
   name: 'App',
-
-  // data() {
-  //   return {
-  //     q: '',
-  //     count: 10,
-  //   }
-  // },
 
   computed: {
     ...mapState(['name','count']),
@@ -53,10 +46,16 @@ export default {
 
   methods: {
     ...mapActions(["fetchUsers"]),
-    ...mapMutations(["updateName","updateCount"]),
+    ...mapMutations(["updateName","updateCount","resetCount"]),
+
+    reset () {
+      this.resetCount()
+      this.fetchUsers()
+      window.scrollTo(0,0)
+    },
 
     fullScroll() {
-      console.log('ddd')
+
       if (document.documentElement.scrollHeight ===
           document.documentElement.scrollTop +
           document.documentElement.clientHeight)

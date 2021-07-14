@@ -23,11 +23,15 @@ export default new Vuex.Store({
 
         updateCount(state) {
             state.count += 10
+        },
+
+        resetCount(state) {
+            state.count = 10
         }
     },
 
     actions: {
-        fetchUsers({commit, state}) {
+        async fetchUsers({commit, state}) {
 
             return instance
                 .get(USERS_BY_NAME(state.name) +

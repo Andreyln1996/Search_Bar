@@ -2,7 +2,8 @@
   <div class="search-bar">
     <div
         v-for="(user, i) in USERS" :key="i"
-        class="search-bar__user">
+        class="search-bar__user"
+        @click="console.log('dfd')">
 
       <img
           :src="user.photo_100"
