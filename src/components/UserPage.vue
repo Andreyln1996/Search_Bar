@@ -1,10 +1,17 @@
 <template>
-  <div>
+  <div class="user-page">
     <div
         v-for="(user, i) in this.user" :key="i"
         class="user-page">
+
+      <button
+          type="button"
+          @click="$router.go(-1)">
+        Назад
+      </button>
+
       <img
-          :src="user.photo_max_orig"
+          :src="user.photo_200"
           alt="Фото"/>
     </div>
   </div>
@@ -19,6 +26,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 </style>

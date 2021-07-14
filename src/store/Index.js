@@ -44,7 +44,7 @@ export default new Vuex.Store({
                     ',domain' + ACCESS_TOKEN() + '&v=5.52')
                 .then(res => {
                     commit('setUsers', res.data.response.items)
-                    console.log(res)
+                    // console.log(res)
                 })
                 .catch(err => console.log(err))
         },
@@ -52,10 +52,10 @@ export default new Vuex.Store({
         getUser({commit}, id) {
             return instance
                 .get(USER_BY_ID(id) +
-                    '&fields=photo_max_orig' +
+                    '&fields=photo_200' +
                     ACCESS_TOKEN() + '&v=5.89')
                 .then(res => {
-                    console.log(res.data.response)
+                    // console.log(res.data.response)
                     commit('updateUser', res.data.response)
                 })
                 .catch(err => console.log(err))
